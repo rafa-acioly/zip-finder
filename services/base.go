@@ -28,7 +28,7 @@ func (base BaseService) DoRequest(zipCode string, service core.Service, channel 
 	defer response.Body.Close()
 
 	content, err := ioutil.ReadAll(response.Body)
-	if err != nil {
+	if err != nil || !service.ValidResponse(content) {
 		return
 	}
 

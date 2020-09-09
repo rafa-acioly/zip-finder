@@ -29,6 +29,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	zipCodeServices := []core.Service{
 		&services.ViaCep{},
 		&services.PostMon{},
+		&services.RepublicaVirtual{},
 	}
 
 	channel := make(chan core.ServiceResponse, len(zipCodeServices))

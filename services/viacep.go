@@ -23,33 +23,25 @@ type ViaCep struct {
 }
 
 // ValidResponse verify if the key "erro" is present on the service response,
-// this validation is needed because viacep retrieves status "200" even when
-// the zipcode does not exist or is invalid
+// the viacep endpoint will always return status "200"
 func (v ViaCep) ValidResponse(content []byte) bool {
 	response := make(map[string]interface{})
 	_ = json.Unmarshal(content, &response)
 
 	if _, ok := response["erro"]; ok {
-		return true
+		return false
 	}
 
-	return false
+	return true
 }
 
-// GetServiceEndpoint retrieves the service full URL that should be called for viacep service
 func (v ViaCep) GetServiceEndpoint(zipCode string) string {
 	url := fmt.Sprintf(viacepURL, zipCode)
 	return url
 }
 
-// ParseServiceResponse will convert the service response into a default response
-func (v *ViaCep) ParseServiceResponse(responseContent []byte) error {
-	err := json.Unmarshal(responseContent, v)
-	if err != nil {
-		return err
-	}
-
-	return nil
+func (v *ViaCep) ParseServiceResponse(serviceResponseContent []byte) error {
+	return json.Unmarshal(serviceResponseContent, v)
 }
 
 func (v ViaCep) ConvertToDefaultResponse() core.ServiceResponse {
