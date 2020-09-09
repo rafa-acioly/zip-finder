@@ -2,6 +2,7 @@ package core
 
 // ServiceResponse is the default payload used to respond on the http calls
 type ServiceResponse struct {
+	Service    string `json:"service"`
 	Cidade     string `json:"cidade"`
 	Bairro     string `json:"bairro"`
 	Logradouro string `json:"logradouro"`

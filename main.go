@@ -31,7 +31,10 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancelCtx := context.WithTimeout(r.Context(), time.Second*1)
 	defer cancelCtx()
 
-	zipCodeServices := []core.Service{&services.ViaCep{}}
+	zipCodeServices := []core.Service{
+		&services.ViaCep{},
+		&services.PostMon{},
+	}
 	channel := make(chan core.ServiceResponse, len(zipCodeServices))
 
 	baseService := services.BaseService{}

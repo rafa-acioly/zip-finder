@@ -7,7 +7,10 @@ import (
 	"github.com/rafa-acioly/zip-finder/core"
 )
 
-const viaCepURL = "https://viacep.com.br/ws/%s/json/"
+const (
+	viacepURL       = "https://viacep.com.br/ws/%s/json/"
+	viacepServiceID = "viacep"
+)
 
 // ViaCep represents the basic information structure retrieved by viacep API
 type ViaCep struct {
@@ -35,7 +38,7 @@ func (v ViaCep) ValidResponse(content []byte) bool {
 
 // GetServiceEndpoint retrieves the service full URL that should be called for viacep service
 func (v ViaCep) GetServiceEndpoint(zipCode string) string {
-	url := fmt.Sprintf(viaCepURL, zipCode)
+	url := fmt.Sprintf(viacepURL, zipCode)
 	return url
 }
 
@@ -51,6 +54,7 @@ func (v *ViaCep) ParseServiceResponse(responseContent []byte) error {
 
 func (v ViaCep) ConvertToDefaultResponse() core.ServiceResponse {
 	return core.ServiceResponse{
+		Service:    viacepServiceID,
 		Cidade:     v.Localidade,
 		Bairro:     v.Bairro,
 		Logradouro: v.Logradouro,
