@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/rafa-acioly/zip-finder/core"
+	"github.com/rafa-acioly/zip-finder/api/core"
 )
 
 const (

@@ -1,28 +1,17 @@
-package main
+package handler
 
 import (
 	"context"
 	"encoding/json"
-	"fmt"
-	"log"
 	"net/http"
 	"time"
 
 	"github.com/gorilla/mux"
-	"github.com/rafa-acioly/zip-finder/core"
-	"github.com/rafa-acioly/zip-finder/services"
+	"github.com/rafa-acioly/zip-finder/api/core"
+	"github.com/rafa-acioly/zip-finder/api/services"
 )
 
-func main() {
-	router := mux.NewRouter()
-	router.HandleFunc("/{zipcode}", handler).Methods(http.MethodGet)
-	router.Use(mux.CORSMethodMiddleware(router))
-
-	fmt.Println("Listening on port: 8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
-}
-
-func handler(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	ctx, cancelCtx := context.WithTimeout(r.Context(), time.Second*1)
 	defer cancelCtx()
 

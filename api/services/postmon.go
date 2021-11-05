@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/rafa-acioly/zip-finder/core"
+	"github.com/rafa-acioly/zip-finder/api/core"
 )
 
 const (
