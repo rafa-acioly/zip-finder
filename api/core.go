@@ -1,4 +1,4 @@
-package core
+package handler
 
 // ServiceResponse is the default payload used to respond on the http calls
 type ServiceResponse struct {

@@ -8,7 +8,6 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/rafa-acioly/zip-finder/api/core"
-	"github.com/rafa-acioly/zip-finder/api/services"
 )
 
 func Handler(w http.ResponseWriter, r *http.Request) {
@@ -16,14 +15,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	defer cancelCtx()
 
 	zipCodeServices := []core.Service{
-		&services.ViaCep{},
-		&services.PostMon{},
-		&services.RepublicaVirtual{},
+		&ViaCep{},
+		&PostMon{},
+		&RepublicaVirtual{},
 	}
 
 	channel := make(chan core.ServiceResponse, len(zipCodeServices))
 	vars := mux.Vars(r)
-	baseService := services.BaseService{}
+	baseService := BaseService{}
 	for _, service := range zipCodeServices {
 		go baseService.DoRequest(vars["zipcode"], service, channel)
 	}
